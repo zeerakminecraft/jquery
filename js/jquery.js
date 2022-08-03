@@ -17,23 +17,28 @@ class Buyer{
 };
 
 class Order{
-    constructor(buyerid, carid, quantity){
+    constructor(buyerid, buyername, carid, carname, quantity){
         this.buyerid = buyerid;
+        this.buyername = buyername;
         this.carid = carid;
+        this.carname = carname;
         this.quantity = quantity;
     }
 };
 
-var cars = [];
-var buyers = [];
-var orders = [];
+var cars = [new Car(1, "corolla", 2022, true, "Black"), new Car(2, "corolla", 2012, false, "Black")];
+var buyers = [new Buyer(1, "Ali"), new Buyer(2, "Tariq")];
+var orders = [new Order()];
 
 
 var year = new Date().getFullYear();
 $(document).ready(function(){
-    
-
     console.log("Calling function successfully...");
+
+    $.each(cars, function (key, value) {
+        $('#carstable').append('<tr> <td>' + value.id + '</td>  <td>' + value.name + '</td> <td>' + value.model + '</td> <td>' + value.hybrid + '</td> <td>' + value.color + '</td></tr>');
+    })
+
     var modeloptions = '';
     for (i = year; i >= 1970; i--) {
         modeloptions += '<option value="' + i + '">' + i + '</option>';
@@ -53,6 +58,7 @@ $(document).ready(function(){
         caroptions+= '<option value="'+ cars[i]["id"] + '">' + cars[i]["id"] + '</option>'
     }
     $("#orderformcarid").append(caroptions);
+
 
     const submitcar = $("#submitcar");
     var h;
