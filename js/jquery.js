@@ -28,15 +28,23 @@ class Order{
 
 var cars = [new Car(1, "corolla", 2022, true, "Black"), new Car(2, "corolla", 2012, false, "Black")];
 var buyers = [new Buyer(1, "Ali"), new Buyer(2, "Tariq")];
-var orders = [new Order()];
-
+var orders = [];
 
 var year = new Date().getFullYear();
+
 $(document).ready(function(){
     console.log("Calling function successfully...");
 
     $.each(cars, function (key, value) {
-        $('#carstable').append('<tr> <td>' + value.id + '</td>  <td>' + value.name + '</td> <td>' + value.model + '</td> <td>' + value.hybrid + '</td> <td>' + value.color + '</td></tr>');
+        $('#carstable').append('<tr> <td>' + value.id + '</td> <td>' + value.name + '</td> <td>' + value.model + '</td> <td>' + value.hybrid + '</td> <td>' + value.color + '</td></tr>');
+    })
+
+    $.each(buyers, function (key, value) {
+        $('#buyerstable').append('<tr> <td>' + value.id + '</td> <td>' + value.name + '</td></tr>');
+    })
+
+    $.each(orders, function (key, value) {
+        $('#ordersstable').append('<tr> <td>' + value.id + '</td> <td>' + value.name + '</td></tr>');
     })
 
     var modeloptions = '';
@@ -50,14 +58,14 @@ $(document).ready(function(){
         console.log(buyers[i].id);
         buyeroptions += '<option value="'+ buyers[i].id + '">' + buyers[i].id + '</option>'
     }
-    $("#orderformbuyerid").append(buyeroptions);
+    $('#orderformbuyerid').append(buyeroptions);
 
     var caroptions = '';
     for(i=0; i<buyers.length;i++){
         console.log(cars[i]["id"]);
-        caroptions+= '<option value="'+ cars[i]["id"] + '">' + cars[i]["id"] + '</option>'
+        caroptions+= '<option value="'+ cars[i].id + '">' + cars[i].id+ '</option>'
     }
-    $("#orderformcarid").append(caroptions);
+    $('#orderformcarid').append(caroptions);
 
 
     const submitcar = $("#submitcar");
@@ -69,10 +77,10 @@ $(document).ready(function(){
         const color = $("#color").val();
         if ($('#hybrid').is(":checked"))
         {
-            h = "Yes";
+            h = true;
         }
         else{
-            h = "No";
+            h = false;
         }
         // cars.append(new Car(id, name, model, h, price));
         cars.push(new Car(id, name, model, h, color))
